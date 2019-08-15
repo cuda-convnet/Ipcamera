@@ -1,0 +1,65 @@
+# Makefile.param 
+# Only global variable should be defined here.
+# All the variables must be used as "export" and "?=".
+# Otherwise, there will be some errors, when Makefile.param is nested.
+
+# Use this file as the following sample
+# ifeq ($(PARAM_FILE), )
+#     PARAM_FILE:=../Makefile.param
+#     include $(PARAM_FILE)
+# endif
+
+include /ipc/config_file.param
+
+export CROSS:= $(SDK_CROSS)
+
+export CC:=$(CROSS)gcc
+export C++:=$(CROSS)g++
+export AR:=$(CROSS)ar
+export STRIP:=$(CROSS)strip
+
+export MPP_CFLAGS:= 
+
+export HIGDB:= n
+
+ifeq ($(HIGDB), y)
+	MPP_CFLAGS += -g
+endif
+
+ifeq ($(HIGDB), n)
+	MPP_CFLAGS += -O0
+endif
+
+
+COMMON_DIR:=$(PWD)/../common
+
+
+
+INC_FLAGS := -I$(HI_DEV_SDK)/$(SDK_MPP)/include
+INC_FLAGS +=  -I$(HI_DEV_SDK)/$(SDK_MPP)/component/acodec
+INC_FLAGS +=  -I$(HI_DEV_SDK)/osal/include
+INC_FLAGS +=  -I$(HI_DEV_SDK)/drv/extdrv/tlv320aic31
+
+
+
+MPI_LIBS := $(HI_DEV_SDK)/$(SDK_MPP)/lib/libmpi.a 
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/libive.a
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/libmd.a
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/libVoiceEngine.a
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/libupvqe.a 
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/libdnvqe.a
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/lib_hiae.a
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/libisp.a 
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/libsns_19v101_imx290.a
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/lib_hiae.a 
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/lib_hiawb.a 
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/lib_hiaf.a 
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/lib_hidefog.a
+MPI_LIBS += $(HI_DEV_SDK)/$(SDK_MPP)/lib/lib_hidefog.a
+
+
+CFLAGS :=   $(INC_FLAGS)  -D$(SDK_CHIP) -DHICHIP=$(SDK_CHIP_ID) -DHI_RELEASE -DHI_XXXX -lpthread -lm -ldl -DISP_V2 -Dhi3519v101 -DHI_ACODEC_TYPE_INNER -mcpu=arm926ej-s -mno-unaligned-access -fno-aggressive-loop-optimizations -ffunction-sections -fdata-sections -fstack-protector  
+CFLAGS += $(SENSOR_CONFIG) $(AI_CONFIG)
+#CFLAGS += -lpthread -lm -ldl 
+
+# End!!

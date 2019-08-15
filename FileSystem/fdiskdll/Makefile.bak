@@ -1,0 +1,13 @@
+
+CROSS_CC=mipsel-uclibc-
+INCLUDE=/usr/mipsel-linux-uclibc/include
+
+CC = $(CROSS_CC)gcc
+
+SRCEXE = test.c 
+SRCLIB = fdisk.c fdiskaixlabel.c fdiskbsdlabel.c fdisksgilabel.c fdisksunlabel.c \
+i386_sys_types.c  llseek.c mkdosfs.c partitiontype.c partname.c
+
+all :
+	$(CC)  -o libmy.so $(SRCLIB) -fPIC -shared -I$(INCLUDE)
+	$(CC)  $(SRCEXE) -o test -L. -lmy -I$(INCLUDE) 

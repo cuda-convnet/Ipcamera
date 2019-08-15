@@ -1,0 +1,8 @@
+---- DISK_GetDiskInfo Matches (7 in 3 files) ----
+Fdisk.c:GST_DISKINFO DISK_GetDiskInfo(int disk_id)
+Libfdisk.h:GST_DISKINFO DISK_GetDiskInfo(int disk_id);
+Test.c:		diskinfo = DISK_GetDiskInfo( i );
+Test.c:		diskinfo = DISK_GetDiskInfo( i );
+Test.c:		diskinfo = DISK_GetDiskInfo( i );
+Test.c:		diskinfo = DISK_GetDiskInfo( i );
+Test.c:	diskinfo = DISK_GetDiskInfo(diskid);
